@@ -1,0 +1,11 @@
+server:
+  port: 8202
+  eureka1: 8101
+  
+spring:
+  application:
+    name: line-producer-2
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:${server.eureka1}/eureka/

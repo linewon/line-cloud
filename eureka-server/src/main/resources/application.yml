@@ -1,0 +1,40 @@
+--- 
+spring:
+  application:
+    name: eureka-server # 这个比一定要一样额。。不然就行不通。具体为什么有空看看源码吧。
+  profiles: peer1  # 这个地方不能用${peers.peer1.name}，原因不详
+  
+server:
+  port: 8101
+eureka:
+  instance:
+    hostname: ${peers.peer1.name}
+  client:
+    serviceUrl:
+      defaultZone: http://${peers.peer3.name}:${peers.peer3.port}/eureka/,http://${peers.peer2.name}:${peers.peer2.port}/eureka/
+---
+spring:
+  application:
+    name: eureka-server
+  profiles: peer2
+server:
+  port: 8102
+eureka:
+  instance:
+    hostname: ${peers.peer2.name}
+  client:
+    serviceUrl:
+      defaultZone: http://${peers.peer3.name}:${peers.peer3.port}/eureka/,http://${peers.peer1.name}:${peers.peer1.port}/eureka/
+---
+spring:
+  application:
+    name: eureka-server
+  profiles: peer3
+server:
+  port: 8103
+eureka:
+  instance:
+    hostname: ${peers.peer3.name}
+  client:
+    serviceUrl:
+      defaultZone: http://${peers.peer1.name}:${peers.peer1.port}/eureka/,http://${peers.peer2.name}:${peers.peer2.port}/eureka/

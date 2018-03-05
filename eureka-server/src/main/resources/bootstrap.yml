@@ -1,0 +1,13 @@
+peers:
+  peer1:
+    name: peer1
+    port: 8101
+  peer2:
+    name: peer2
+    port: 8102
+  peer3:
+    name: peer3
+    port: 8103
+  peer4:
+    name: peer4
+    port: 8104

@@ -1,0 +1,11 @@
+server:
+  port: 8301
+  
+spring:
+  application:
+    name: line-hello-service
+    
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${peers.peer3.name}:${peers.peer3.port}/eureka/,http://${peers.peer2.name}:${peers.peer2.port}/eureka/,http://${peers.peer1.name}:${peers.peer1.port}/eureka/

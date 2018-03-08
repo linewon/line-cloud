@@ -3,7 +3,7 @@
 	<springProperty scope="context" name="springAppName" source="spring.application.name"/>
 	<!-- Example for logging into the build folder of your project -->
 	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
-	<property name="LOG_HOME" value=".//logs//${springAppName}" />
+	<property name="LOG_HOME" value="${logging.path}//${springAppName}" />
 	<property name="PATTERN" value="%n%d{yy-MM-dd HH:mm:ss.SSS}[%thread]%-5level-%logger{30}|%msg%n" />
 	<!-- 控制台输出 -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

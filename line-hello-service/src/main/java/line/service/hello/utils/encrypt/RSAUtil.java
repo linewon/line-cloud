@@ -124,5 +124,6 @@ public class RSAUtil {
 		byte[] cipher = Encryptions.encrypt(data.getBytes(), publicKey, transform);
 		byte[] plain = Encryptions.decrypt(cipher, privateKey, transform);
 		System.out.println(new String(plain));
+		
 	}
 }

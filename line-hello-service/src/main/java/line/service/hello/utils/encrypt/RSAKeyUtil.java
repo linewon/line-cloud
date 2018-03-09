@@ -19,6 +19,7 @@ import line.service.hello.utils.HexUtil;
 
 public class RSAKeyUtil {
 	
+	private static final String ALG = "RSA";
 	public static class KeyPairGenerator {
 
 		/**
@@ -53,7 +54,7 @@ public class RSAKeyUtil {
 				throw new IllegalArgumentException("the keySize is not supported!");
 			}
 			Map<String, RSAKey> keyPairMap = new HashMap<String, RSAKey>();
-			java.security.KeyPairGenerator keyPairGen = java.security.KeyPairGenerator.getInstance("RSA");
+			java.security.KeyPairGenerator keyPairGen = java.security.KeyPairGenerator.getInstance(ALG);
 			keyPairGen.initialize(keySize);
 			KeyPair keyPair = keyPairGen.generateKeyPair();
 			RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
@@ -80,7 +81,7 @@ public class RSAKeyUtil {
 		public static RSAPublicKey generatePublicKey(BigInteger modulus, BigInteger exponent)
 				throws NoSuchAlgorithmException, InvalidKeySpecException {
 			RSAPublicKeySpec spec = new RSAPublicKeySpec(modulus, exponent);
-			KeyFactory kf = KeyFactory.getInstance("RSA");
+			KeyFactory kf = KeyFactory.getInstance(ALG);
 			return (RSAPublicKey) kf.generatePublic(spec);
 		}
 
@@ -88,7 +89,7 @@ public class RSAKeyUtil {
 		 * 生成X.509格式的公钥
 		 */
 		public static String generatePublicKeyInX509(RSAPublicKey publicKey) {
-			return HexUtil.byteArr2HexString(publicKey.getEncoded());
+			return HexUtil.toHexString(publicKey.getEncoded());
 		}
 
 		/**
@@ -101,8 +102,8 @@ public class RSAKeyUtil {
 		 */
 		public static RSAPublicKey generatePublicKeyFromX509(String publicKeyX509)
 				throws NoSuchAlgorithmException, InvalidKeySpecException {
-			X509EncodedKeySpec spec = new X509EncodedKeySpec(HexUtil.hexString2ByteArr(publicKeyX509));
-			KeyFactory kf = KeyFactory.getInstance("RSA");
+			X509EncodedKeySpec spec = new X509EncodedKeySpec(HexUtil.toByteArray(publicKeyX509));
+			KeyFactory kf = KeyFactory.getInstance(ALG);
 			return (RSAPublicKey) kf.generatePublic(spec);
 		}
 	}
@@ -124,7 +125,7 @@ public class RSAKeyUtil {
 				throws NoSuchAlgorithmException, InvalidKeySpecException {
 
 			RSAPrivateKeySpec spec = new RSAPrivateKeySpec(modulus, exponent);
-			KeyFactory kf = KeyFactory.getInstance("RSA");
+			KeyFactory kf = KeyFactory.getInstance(ALG);
 			return (RSAPrivateKey) kf.generatePrivate(spec);
 		}
 
@@ -136,8 +137,8 @@ public class RSAKeyUtil {
 		 */
 		public static RSAPrivateKey generatePrivateKey(String privateKey)
 				throws NoSuchAlgorithmException, InvalidKeySpecException {
-			PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(HexUtil.hexString2ByteArr(privateKey));
-			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+			PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(HexUtil.toByteArray(privateKey));
+			KeyFactory keyFactory = KeyFactory.getInstance(ALG);
 			RSAPrivateKey priKey = (RSAPrivateKey) keyFactory.generatePrivate(pkcs8KeySpec);
 			return priKey;
 		}
@@ -146,7 +147,7 @@ public class RSAKeyUtil {
 		 * 生成PKCS#8格式16进制私钥
 		 */
 		public static String generatePrivateKey(RSAPrivateKey priKey) {
-			return HexUtil.byteArr2HexString(priKey.getEncoded());
+			return HexUtil.toHexString(priKey.getEncoded());
 		}
 	}
 	

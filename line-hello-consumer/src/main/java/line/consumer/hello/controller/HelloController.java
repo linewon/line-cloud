@@ -8,6 +8,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import line.consumer.hello.feign.client.HelloServiceFeignClient;
 import lombok.extern.slf4j.Slf4j;
 
+
+
+/**
+ * TEST FOR FEIGN CLIENT
+ * @author line
+ *
+ */
 @Controller
 @Slf4j
 public class HelloController {
@@ -24,6 +31,7 @@ public class HelloController {
 			String resp = helloServiceFeignClient.hello();
 			return resp;
 		} catch (Exception e) {
+			log.error("ERROR", e);
 			return "9999";
 		}
 	}

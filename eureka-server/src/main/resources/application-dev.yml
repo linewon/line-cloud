@@ -1,10 +1,10 @@
 server:
-  port: 8100
+  port: 8101
    
 spring:
   application:
     name: eureka-server-single
-  profiles: single
+  profiles: dev
 
 eureka:
   server:

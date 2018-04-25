@@ -8,4 +8,9 @@ import lombok.Setter;
 public class BaseDataResponse extends BaseResponse {
 
 	private BaseResponseData respData;
+	
+	public BaseDataResponse(String respCode, String respInfo, BaseResponseData respData) {
+		super(respCode, respInfo);
+		this.respData = respData;
+	}
 }

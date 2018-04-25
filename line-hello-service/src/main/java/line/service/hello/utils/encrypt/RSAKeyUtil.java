@@ -12,26 +12,28 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
 import line.service.hello.utils.HexUtil;
 
 public class RSAKeyUtil {
-	
+
 	private static final String ALG = "RSA";
+
 	public static class KeyPairGenerator {
 
 		/**
 		 * 支持的keySize
 		 */
-		private static final int[] SUPT_KEY_SIZE = {512, 1024, 2048};
+		private static final int[] SUPT_KEY_SIZE = { 512, 1024, 2048 };
 		/**
 		 * Map中存放的key值
 		 */
 		public static final String PUBLIC_KEY = "publicKey";
 		public static final String PRIVATE_KEY = "privateKey";
-		
+
 		/**
 		 * 检查输入keySize是否支持
 		 */
@@ -42,12 +44,11 @@ public class RSAKeyUtil {
 			}
 			return false;
 		}
-		
+
 		/**
-		 * 生成密钥对
-		 * 可以根据生成的每月对再进一步转换
+		 * 生成密钥对 可以根据生成的每月对再进一步转换
 		 * 
-		 * @throws NoSuchAlgorithmException 
+		 * @throws NoSuchAlgorithmException
 		 */
 		public static Map<String, RSAKey> generateKeyPair(int keySize) throws NoSuchAlgorithmException {
 			if (!isKeySizeSupported(keySize)) {
@@ -92,6 +93,21 @@ public class RSAKeyUtil {
 			return HexUtil.toHexString(publicKey.getEncoded());
 		}
 
+		public static String generatePublicKeyInPEM(RSAPublicKey publicKey) {
+			byte[] bs = HexUtil.toByteArray(generatePublicKeyInX509(publicKey));
+			return Base64.getEncoder().encodeToString(bs);
+		}
+
+		// /**
+		// * DER
+		// */
+		// public static String generatePublicKeyInDER(RSAPublicKey publicKey) {
+		// BigInteger modul = publicKey.getModulus();
+		// BigInteger expo = publicKey.getPublicExponent();
+		//
+		// new RSAPublicKeyStructure(modul, expo).get;
+		// }
+
 		/**
 		 * 根据X.509格式公钥字符串生成公钥
 		 * 
@@ -105,6 +121,14 @@ public class RSAKeyUtil {
 			X509EncodedKeySpec spec = new X509EncodedKeySpec(HexUtil.toByteArray(publicKeyX509));
 			KeyFactory kf = KeyFactory.getInstance(ALG);
 			return (RSAPublicKey) kf.generatePublic(spec);
+		}
+
+		public static RSAPublicKey generatePublicKeyFromPEM(String publicKeyPEM)
+				throws NoSuchAlgorithmException, InvalidKeySpecException {
+			byte[] pub = Base64.getDecoder().decode(publicKeyPEM);
+			String pubX509 = HexUtil.toHexString(pub);
+
+			return generatePublicKeyFromX509(pubX509);
 		}
 	}
 
@@ -150,15 +174,21 @@ public class RSAKeyUtil {
 			return HexUtil.toHexString(priKey.getEncoded());
 		}
 	}
-	
+
 	public static void main(String[] args) throws Exception {
-		Map<String, RSAKey> keyPair = KeyPairGenerator.generateKeyPair(1024);
-		RSAPublicKey publicKey = (RSAPublicKey) keyPair.get("publicKey");
-		RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.get("privateKey");
-		String pub = PublicKeyGenerator.generatePublicKeyInX509(publicKey);
-		String pri = PrivateKeyGenerator.generatePrivateKey(privateKey);
-		
-		System.out.println(pub);
-		System.out.println(pri);
+		// Map<String, RSAKey> keyPair = KeyPairGenerator.generateKeyPair(1024);
+		// RSAPublicKey publicKey = (RSAPublicKey) keyPair.get("publicKey");
+		// RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.get("privateKey");
+		// String pub = PublicKeyGenerator.generatePublicKeyInX509(publicKey);
+		// String pri = PrivateKeyGenerator.generatePrivateKey(privateKey);
+		//
+		// System.out.println(pub);
+		// System.out.println(pri);
+
+		String pub = "";
+		RSAPublicKey pubK = PublicKeyGenerator.generatePublicKeyFromX509(pub);
+
+		String pem = PublicKeyGenerator.generatePublicKeyInPEM(pubK);
+		System.out.println(pem);
 	}
 }

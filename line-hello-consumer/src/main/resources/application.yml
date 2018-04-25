@@ -3,12 +3,16 @@ server:
   
 spring:
   application:
-    name: line-hello-consumer
+    name: hello-consumer
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://${peers.peer3.name}:${peers.peer3.port}/eureka/,http://${peers.peer2.name}:${peers.peer2.port}/eureka/,http://${peers.peer1.name}:${peers.peer1.port}/eureka/
+      defaultZone: http://localhost:8101/eureka/
       
 logging:
   config: classpath:logback-spring.xml
   path: C:\Users\line\Desktop\myCloud\logs
+  
+feign:
+  hystrix:
+    enabled: true

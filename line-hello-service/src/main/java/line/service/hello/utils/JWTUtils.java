@@ -1,10 +1,8 @@
 package line.service.hello.utils;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 import java.util.Map;
 
-import org.bouncycastle.jcajce.provider.asymmetric.dsa.DSASigner.noneDSA;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.auth0.jwt.JWT;

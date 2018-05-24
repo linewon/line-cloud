@@ -56,6 +56,9 @@ public class ExceptionProcessor {
 		return getRespStr(response);
 	}
 
+	
+//	MethodArgumentNotValidException
+	
 	/**
 	 * 处理参数不正确导致的异常
 	 */

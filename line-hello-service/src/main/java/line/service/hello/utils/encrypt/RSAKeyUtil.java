@@ -176,16 +176,16 @@ public class RSAKeyUtil {
 	}
 
 	public static void main(String[] args) throws Exception {
-		// Map<String, RSAKey> keyPair = KeyPairGenerator.generateKeyPair(1024);
-		// RSAPublicKey publicKey = (RSAPublicKey) keyPair.get("publicKey");
-		// RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.get("privateKey");
-		// String pub = PublicKeyGenerator.generatePublicKeyInX509(publicKey);
-		// String pri = PrivateKeyGenerator.generatePrivateKey(privateKey);
-		//
-		// System.out.println(pub);
-		// System.out.println(pri);
+		 Map<String, RSAKey> keyPair = KeyPairGenerator.generateKeyPair(1024);
+		 RSAPublicKey publicKey = (RSAPublicKey) keyPair.get("publicKey");
+		 RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.get("privateKey");
+		 String pub = PublicKeyGenerator.generatePublicKeyInX509(publicKey);
+		 String pri = PrivateKeyGenerator.generatePrivateKey(privateKey);
+		
+		 System.out.println(pub);
+		 System.out.println(pri);
 
-		String pub = "";
+//		String pub = "";
 		RSAPublicKey pubK = PublicKeyGenerator.generatePublicKeyFromX509(pub);
 
 		String pem = PublicKeyGenerator.generatePublicKeyInPEM(pubK);

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: hello-service
+
+server:
+  port: 7082
+#  profiles:
+#    active: peer2
+    
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web: DEBUG

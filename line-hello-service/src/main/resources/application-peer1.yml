@@ -1,9 +1,5 @@
 server:
   port: 8301
-  
-spring:
-  application:
-    name: hello-service
     
 eureka:
   client:

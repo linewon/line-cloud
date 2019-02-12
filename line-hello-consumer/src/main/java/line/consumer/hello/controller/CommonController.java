@@ -60,6 +60,6 @@ public class CommonController {
 		return JSON.toJSONString(request);
 	}
 	
-	@PostMapping("/inner/inner-with-map")
-	public String innerWithMap(@ReuqestBody )
+//	@PostMapping("/inner/inner-with-map")
+//	public String innerWithMap(@ReuqestBody )
 }

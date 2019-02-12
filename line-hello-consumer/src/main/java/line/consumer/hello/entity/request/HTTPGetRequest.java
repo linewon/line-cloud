@@ -18,7 +18,7 @@ public class HTTPGetRequest {
 	private String name;
 	private String phone;
 	@NotNull(message = "性别不能为空")
-	private Boolean sex;
+	private String sex;
 	@NotNull(message = "年龄不能为空")
-	private Integer age;
+	private String age;
 }

@@ -14,4 +14,10 @@ zuul:
   routes:
     hello-service:
 #      path: /hello-service/**
-#      serviceId: line-hello-service
+#      serviceId: line-hello-service    
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
